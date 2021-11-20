@@ -9,31 +9,65 @@ Big Screen
 <div id="xcommand"></div>
 highlight
 <div id="ycommand"></div>
+color code:
+<div id="code" style="font-size: 16pt; color: green;"></div><div id="copy" style="display: table-cell; width: 80px; height: 40px; background-color: grey;text-align:center;vertical-align: middle" >copy Code</div>
 <script>
-var colors=["black","blue","green","cyan","red","magenta","brown","lightgray","darkgray","lightblue","lightgreen","lightcyan","#ffcccb","#ff80ff","yellow","white"];
+document.getElementById("copy").addEventListener("click",function(){
+navigator.clipboard.writeText(document.getElementById("code").innerHTML);
+document.getElementById("code").style.color="#ff00ff";
+});
+var colors=["black","blue","green","cyan","red","magenta","brown","lightgray","darkgray","lightblue","lightgreen","lightcyan","rgb(255, 204, 203)","rgb(255, 128, 255)","yellow","white"];
+var colorr=["black","blue","green","cyan","red","magenta","brown","light-gray","dark-gray","light-blue","light-green","light-cyan","light-red","light-magenta","yellow","white"];
+var mbg="white";
+var mfg="black";
+var hbg="white";
+var hfg="black";
 var bg="";
 var fg="";
 for(var i=0;i<colors.length;i++){
 if(i<8){
 bg+="<span style=\"display:inline-block; background-color:"+colors[i]+"; width: 40px; height: 30px;\" ></span>";
 }
-fg+="<span style=\"display:inline-block; background-color:"+colors[i]+"; width: 40px; height: 30px;\" ></span>";
+fg+="<span style=\"display:inline-block; background-color:"+colors[colors.length-1-i]+"; width: 40px; height: 30px;\" ></span>";
 }
 document.getElementById("xcommand").innerHTML="<div id=\"slbg\" >"+bg+"</div><div id=\"slfg\">"+fg+"</div>";
 document.getElementById("ycommand").innerHTML="<div id=\"slbg\" >"+bg+"</div><div id=\"slfg\">"+fg+"</div>";
 
 var evidle=function (){
 document.onclick=function(e){
-if (e.path[2].id=="xcommand"){
+var cl=e.target.style.backgroundColor;
+if (e.target.parentElement.parentElement.id=="xcommand"){
 if(e.target.parentElement.id=="slbg"){
-document.getElementById("screen").style.background=e.target.style.backgroundColor;}else{document.getElementById("menu").style.color=e.target.style.backgroundColor;}
-
-}else{
-if(e.target.parentElement.id=="slbg"){
-document.getElementById("highlight").style.background=e.target.style.backgroundColor;}else{document.getElementById("highlight").style.color=e.target.style.backgroundColor;}
+document.getElementById("screen").style.background=cl;
+mbg=rcolor(cl);
+}else{document.getElementById("menu").style.color=cl;
+mfg=rcolor(cl);
 }
-console.log(e.target.parentElement.id);}
-};
 
+}
+if (e.target.parentElement.parentElement.id=="ycommand")
+{
+if(e.target.parentElement.id=="slbg"){
+document.getElementById("highlight").style.background=cl;
+hbg=rcolor(cl);
+}else{document.getElementById("highlight").style.color=cl;
+hfg=rcolor(cl);
+}
+}
+console.log(e.target.parentElement.id);
+document.getElementById("code").innerHTML="color "+mfg+"/"+mbg+" "+hfg+"/"+hbg+" "+mfg+"/"+mbg+" "+mfg+"/"+mbg;
+}
+
+};
+function rcolor(str){
+var rt=str;
+for(var c=0; c<colors.length; c++){
+if(str==colors[c]){
+rt=colorr[c];
+}
+}
+return rt;
+}
 evidle();
+
 </script>
