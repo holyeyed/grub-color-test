@@ -1,0 +1,39 @@
+<div id="screen" style="width:800px; height: 400px;">
+<div id="highlight" >WINDOWS PE BOOT FROM ISO</div>
+<div id="menu">
+<div id="" >INSTALL UBUNTU FROM ISO</div>
+<div id="" >LIVE CD KASPERSKY</div>
+</div>
+</div>
+Big Screen
+<div id="xcommand"></div>
+highlight
+<div id="ycommand"></div>
+<script>
+var colors=["black","blue","green","cyan","red","magenta","brown","lightgray","darkgray","lightblue","lightgreen","lightcyan","#ffcccb","#ff80ff","yellow","white"];
+var bg="";
+var fg="";
+for(var i=0;i<colors.length;i++){
+if(i<8){
+bg+="<span style=\"display:inline-block; background-color:"+colors[i]+"; width: 40px; height: 30px;\" ></span>";
+}
+fg+="<span style=\"display:inline-block; background-color:"+colors[i]+"; width: 40px; height: 30px;\" ></span>";
+}
+document.getElementById("xcommand").innerHTML="<div id=\"slbg\" >"+bg+"</div><div id=\"slfg\">"+fg+"</div>";
+document.getElementById("ycommand").innerHTML="<div id=\"slbg\" >"+bg+"</div><div id=\"slfg\">"+fg+"</div>";
+
+var evidle=function (){
+document.onclick=function(e){
+if (e.path[2].id=="xcommand"){
+if(e.target.parentElement.id=="slbg"){
+document.getElementById("screen").style.background=e.target.style.backgroundColor;}else{document.getElementById("menu").style.color=e.target.style.backgroundColor;}
+
+}else{
+if(e.target.parentElement.id=="slbg"){
+document.getElementById("highlight").style.background=e.target.style.backgroundColor;}else{document.getElementById("highlight").style.color=e.target.style.backgroundColor;}
+}
+console.log(e.target.parentElement.id);}
+};
+
+evidle();
+</script>
